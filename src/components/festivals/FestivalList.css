@@ -10,22 +10,31 @@
  padding: 10px;
  background-color: #fff;
  color: #000;
- display: grid;
+ display: flex;
+ flex-direction: column;
+ justify-content: space-between;
  gap: 20px;
  text-align: center;
 }
+
+/* flex를 사용하면 각 셀의 컨텐츠를 움직여 배치 - 그리드보다 구조 변화에 사용 용이 */
 
 .card-img {
   padding-top: 70%;
   background-repeat: no-repeat;
   background-size: cover;
-  border-radius: 15px;
+  border-radius: 10px;
 }
 
 .card-title {
- font-size: 32px;
+ font-size: 30px;
+ font-weight: 700;
 }
 
 .card-period {
   font-size: 24px;
+}
+
+.card-btn {
+  
 }
