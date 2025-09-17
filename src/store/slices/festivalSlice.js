@@ -5,6 +5,7 @@ import { localStorageUtil } from "../../utils/localStorageUtil.js";
 const festivalSlice = createSlice({
   name: 'festivalSlice',
   initialState: {
+    // list: null, 
    list: localStorageUtil.getFestivalList() ? localStorageUtil.getFestivalList() : [],   // 페스티벌 리스트 
    page: localStorageUtil.getFestivalPage() ? localStorageUtil.getFestivalPage() : 0, // 현재 페이지 번호
    scrollEventFlg: localStorageUtil.getFestivalScrollFlg ? localStorageUtil.getFestivalScrollFlg : true, // 스크롤 이벤트 디바운싱 제어 플래그

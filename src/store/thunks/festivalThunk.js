@@ -12,6 +12,7 @@ const festivalIndex = createAsyncThunk(
    const pastDateYMD = dateFormatter.formatDateToYMD(dateCalculater.getPastDate((1000*60*60*24*30)));
 
 
+
    const url = `${axiosConfig.BASE_URL}/searchFestival2`; 
    const config = {
       params:  {

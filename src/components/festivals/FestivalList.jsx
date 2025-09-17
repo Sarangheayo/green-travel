@@ -4,9 +4,11 @@ import { useEffect } from 'react';
 import { festivalIndex } from '../../store/thunks/festivalThunk.js';
 import { dateFormatter } from '../../utils/dateFormatter.js';
 import { setScrollEventFlg } from '../../store/slices/festivalSlice.js';
+import { useNavigate } from 'react-router-dom';
 
 function FestivalList() {
    const dispatch = useDispatch();
+   const navigate = useNavigate();
 
    const festivalList = useSelector(state => state.festival.list);
    const scrollEventFlg = useSelector(state => state.festival.scrollEventFlg);  
@@ -44,13 +46,19 @@ function FestivalList() {
       }
     }
 
+    // 상세 페이지로 이동
+    function redirectShow(item) {
+      //  dispatch(setFestivalInfo(item));
+       navigate(`/festivals/${item.contentid}`);
+    }
+
     return (
     <>
        <div className="container">
            {
             festivalList && festivalList.map(item => {
               return (
-                <div className="card" key={item.contentid}>
+                <div className="card" onClick={() => {redirectShow(item)}  } key={item.contentid}>
                   <div className="card-img" style={{backgroundImage: `url('${item.firstimage}')`}}></div>
                   <p className='card-title'>{item.title}</p>
                   <p className="card-period">{dateFormatter.withHyphenYMD(item.eventstartdate)} ~ {dateFormatter.withHyphenYMD(item.eventenddate)}</p>
@@ -59,7 +67,7 @@ function FestivalList() {
             })
            }
        </div>
-        <button type='button' className='card-btn' onClick={addNextPage} > 더 보기 </button>
+        {/* <button type='button' className='card-btn' onClick={addNextPage} > 더 보기 </button> */}
     </>
   )
 }
