@@ -4,6 +4,8 @@ import Header from './components/common/Header.jsx';
 import { Outlet, ScrollRestoration } from 'react-router-dom';
 import { localStorageUtil } from './utils/localStorageUtil.js';
 import { dateFormatter } from './utils/dateFormatter.js';
+import BeforeInstallPrompt from './components/BeforeInstallPrompt.jsx';
+
 
 function App() {
 
@@ -28,10 +30,12 @@ function App() {
 
     return (
       <>
+       <BeforeInstallPrompt />
        <Header></Header>
        <main>
         <Outlet />
        </main>
+
         {/* 스크롤 초기화, 최상위 컴포넌트에 한번만 추가*/}
         <ScrollRestoration></ScrollRestoration>
       </>
