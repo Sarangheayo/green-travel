@@ -28,7 +28,7 @@ function FestivalShow() {
       {
        festivalInfo.title && 
        <div className="show-container">
-         <button type="button" onClick={redirectBack}>Back</button>
+         <button className="show-btn" type="button" onClick={redirectBack}>Back</button>
          <p className="show-title">{festivalInfo.title}</p>
          <p className="card-period">{dateFormatter.withHyphenYMD(festivalInfo.eventstartdate)} ~ {dateFormatter.withHyphenYMD(festivalInfo.eventenddate)}</p>
          <img className="show-img" src={festivalInfo.firstimage} alt={`${festivalInfo.title}사진`} />

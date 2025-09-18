@@ -23,3 +23,11 @@
 .show-addr {
   font-size: 25px;
 }
+
+.show-btn {
+  padding: 20px;
+  font-size: 30px;
+  border-radius: 15px;
+  background-color: white;
+  border: none;
+}
