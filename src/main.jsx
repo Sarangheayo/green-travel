@@ -7,9 +7,9 @@ import store from './store/store.js';
 import swRegister from './swRegister.js';
 
 createRoot(document.getElementById('root')).render(
-    <Provider store={store}>
-      <Router />
-    </Provider>
+  <Provider store={store}>
+    <Router />
+  </Provider>
 );
 
 

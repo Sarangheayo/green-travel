@@ -4,3 +4,56 @@ h1 {
   font-size: 50px;
   text-align: center;
 }
+
+
+:root { --gt-header-h: 56px; }
+
+.gt-header {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--gt-header-h);
+  background: #ffffffcc;
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #eee;
+  z-index: 1000;
+}
+.gt-header__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+  padding: 0 16px;
+  display: flex;
+  align-items: center; 
+  justify-content: space-between;
+}
+.gt-brand {
+  font-weight: 700;
+  color: #337354;
+  text-decoration: none;
+  margin-right: 60px;  
+}
+
+.gt-nav {
+  display: flex;
+  gap: 18px; 
+}
+
+.gt-link {
+  color: #333;
+  text-decoration: none;
+  padding: 6px 8px;
+  border-radius: 8px; 
+}
+
+.gt-link.active {
+  color: #0a6847; 
+  background: #0a684712; 
+  font-weight: 600; }
+
+.gt-link:hover {
+  background: #f4f6f8;
+  transform: translateY(-1px);
+}
+
+/* 헤더에 가리지 않게 본문 밀기 */
+body {
+  padding-top: var(--gt-header-h); }

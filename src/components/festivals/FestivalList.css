@@ -1,38 +1,158 @@
-.container {
+:root{
+  --btn-lift: 20px;
+  --ip-offset: 110px;
+  --radius: 16px;
+  --accent: #337354;
+}
+
+/* 페이지 */
+.festival.page{
+  padding: 32px 20px 64px;
+}
+
+/* 히어로 */
+.festival-hero{
+  max-width: 1100px;
+  margin: 0 auto 16px;
+}
+.festival-hero__title{
+  font-size: 28px; font-weight: 800; letter-spacing: -0.2px; margin: 0 0 6px;
+}
+.festival-hero__desc{ color: #666; margin: 0 0 10px; }
+
+/* ===== Toolbar: 시/도 · 시군구 · 검색 ===== */
+:root{ --input-h: 40px; }
+.toolbar{
+  max-width: 1100px; margin: 8px auto 12px;
+  display: flex; align-items: center; gap: 10px; flex-wrap: nowrap;
+}
+.filterbar{ display: flex; align-items: center; gap: 8px; }
+.filterbar__select,
+.search__input{
+  height: var(--input-h);
+  padding: 0 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease, transform .08s ease;
+  font-size: 14px;
+}
+.filterbar__select:hover, .search__input:hover{ background:#fafafa; }
+.filterbar__select:focus, .search__input:focus{
+  outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(51,115,84,.15);
+}
+.filterbar__select{
+  min-width: 160px; appearance: none;
+  background-image:url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 7l5 6 5-6' stroke='%2399A1A8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 10px center; padding-right: 34px;
+}
+.search{ flex: 1; display: flex; position: relative; }
+.search__input{ width: 100%; min-width: 240px; padding-right: 34px; }
+.search__input::-webkit-search-cancel-button{ -webkit-appearance: none; }
+.search__input::-webkit-search-decoration{ -webkit-appearance: none; }
+.search__clear{
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  width: 24px; height: 24px; border-radius: 12px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--accent); background: var(--accent); color: #fff;
+  cursor: pointer; outline: none;
+  box-shadow: 0 1px 3px rgba(51,115,84,.25);
+  transition: box-shadow .15s ease, filter .12s ease, transform .08s ease;
+}
+.search__clear:hover{ filter: brightness(1.06); }
+.search__clear:active{ transform: scale(.96); }
+.search__clear:focus-visible{ box-shadow: 0 0 0 3px rgba(51,115,84,.18); }
+
+@media (max-width: 520px){
+  .toolbar{ flex-wrap: wrap; }
+  .filterbar{ width: 100%; }
+  .filterbar__select{ flex: 1; min-width: 0; }
+  .search{ width: 100%; order: 2; }
+}
+
+/* ====== 그리드 & 고정 높이(Stay와 동일 스케일) ====== */
+.festival-grid{
+  --card-h: 280px;
+  --thumb-h: 150px;
+  max-width: 1100px; margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 30px;
-  padding: 20px;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 18px; align-items: stretch;
+}
+@media (max-width: 1024px){
+  .festival-grid{ grid-template-columns: repeat(3,1fr); --card-h: 325px; --thumb-h: 165px; }
+}
+@media (max-width: 768px){
+  .festival-grid{ grid-template-columns: repeat(2,1fr); --card-h: 345px; --thumb-h: 185px; }
+}
+@media (max-width: 480px){
+  .festival-grid{ grid-template-columns: 1fr; --card-h: 365px; --thumb-h: 205px; }
 }
 
-.card {
- border-radius: 15px;
- padding: 10px;
- background-color: #fff;
- color: #000;
- display: flex;
- flex-direction: column;
- justify-content: space-between;
- gap: 20px;
- text-align: center;
+/* ====== 카드 ====== */
+.festival-card{
+  display: flex; flex-direction: column; justify-content: space-between;
+  height: var(--card-h);
+  border-radius: var(--radius); overflow: hidden; background: #fff;
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+  text-decoration: none; color: inherit;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.festival-card:hover{ transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,.12); }
+
+/* 썸네일 */
+.festival-card__thumb{ height: var(--thumb-h); background:#f3f4f6; }
+.festival-card__thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+/* 본문 */
+.festival-card__body {
+  height: calc(var(--card-h) - var(--thumb-h));
+  display:flex; flex-direction:column; justify-content:space-between;
+  box-sizing: border-box; padding: 12px 14px 14px;
 }
 
-/* flex를 사용하면 각 셀의 컨텐츠를 움직여 배치 - 그리드보다 구조 변화에 사용 용이 */
+/* 제목/기간 */
+.festival-card__title{
+  font-size: 18px; font-weight: 700; margin: 0;
+  min-height: calc(1.4em * 2);
+  display:-webkit-box; -webkit-box-orient:vertical; overflow:hidden;
+}
+.festival-card__period{
+  font-size: 13px; color:#6b7280; margin: 8px 0 0;
+  text-align: left; 
+}
 
-.card-img {
-  padding-top: 70%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  border-radius: 10px;
+/* 스켈레톤 */
+.skeleton{ background:linear-gradient(90deg,#f2f3f5 0%,#eceff3 50%,#f2f3f5 100%); animation: sk 1.2s infinite; }
+@keyframes sk{ 0%{background-position:-200px 0;} 100%{background-position:200px 0;} }
+.festival-card--skeleton .festival-card__body{ padding: 12px 14px 14px; }
+.line{ height:12px; border-radius:6px; margin:8px 0; } .w-70{ width:70%; } .w-50{ width:50%; }
+
+/* TOP 버튼 (Install 배너 회피는 기존 .has-install 규칙 적용됨) */
+.btn-top{
+  position: fixed; right: 16px;
+  bottom: calc(max(16px, env(safe-area-inset-bottom)) + var(--btn-lift));
+  background: #337354; opacity: .9; border:0; padding:0; width:48px; height:48px;
+  border-radius:50%; color:#fff; font:700 14px/1 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans", Apple SD Gothic Neo, sans-serif;
+  cursor:pointer; z-index:2000; box-shadow:0 8px 18px rgba(0,0,0,.22);
+  transition: transform .15s ease, box-shadow .15s ease, filter .15s ease, bottom .2s ease;
+}
+.btn-top:hover{ transform: translateY(-2px); box-shadow:0 12px 26px rgba(0,0,0,.28); filter:brightness(1.05); }
+.btn-top:active{ transform: translateY(0) scale(.98); }
+.has-install .btn-top{ bottom: calc(max(16px, env(safe-area-inset-bottom)) + var(--ip-offset) + 12px + var(--btn-lift)); }
+
+/* 빈 상태 */
+.empty {
+  text-align: center; 
+  color: #337354; 
+  padding: 24px; 
 
 }
 
-.card-title {
- font-size: 30px;
- font-weight: 700;
-}
 
-.card-period {
-  font-size: 24px;
-}
-
+/* src/components/festivals/FestivalList.css */
+/* ...기존 코드 위/아래 어느 곳에 추가해도 OK */
+.list-intro { max-width: 1000px; margin: 12px auto 8px; padding: 0 16px; }
+.list-title { font-size: 22px; font-weight: 800; color: #0a6847; margin-bottom: 4px; }
+.list-desc  { font-size: 14px; color: #333; }

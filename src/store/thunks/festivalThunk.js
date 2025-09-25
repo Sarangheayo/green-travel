@@ -1,35 +1,76 @@
+// src/store/thunks/festivalThunk.js
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axiosConfig from "../../configs/axiosConfig.js";
 import axios from "axios";
 import { dateCalculater } from "../../utils/dateCalculater.js";
 import { dateFormatter } from "../../utils/dateFormatter.js";
 
-const festivalIndex = createAsyncThunk(
- 'festivalSlice/festivalIndex', //thunk 고유명 보통 그대로 적음 ㅇ 
-  async (arg, thunkAPI) => {
-    //state 접근 방법 
-   const state = thunkAPI.getState();
-   const pastDateYMD = dateFormatter.formatDateToYMD(dateCalculater.getPastDate((1000*60*60*24*30)));
+export const festivalIndex = createAsyncThunk(
+  "festivalSlice/festivalIndex",
+  async (arg = {}, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const pastDateYMD = dateFormatter.formatDateToYMD(
+      dateCalculater.getPastDate(1000 * 60 * 60 * 24 * 30)
+    );
 
+    const C = axiosConfig.COMMON;
+    const url = `${C.BASE_URL}/searchFestival2`;
+    const arrange = C.ARRANGE ?? "O";
+    const numOfRows = C.NUM_OF_ROWS ?? 12;
 
+    const params = {
+      serviceKey: C.SERVICE_KEY,
+      MobileOS: C.MOBILE_OS,
+      MobileApp: C.MOBILE_APP,
+      _type: C.TYPE,
+      arrange,
+      numOfRows,
+      pageNo: (state?.festival?.page ?? 0) + 1,
+      eventStartDate: pastDateYMD,
+    };
 
-   const url = `${axiosConfig.BASE_URL}/searchFestival2`; 
-   const config = {
-      params:  {
-          serviceKey: axiosConfig.SERVICE_KEY,
-          MobileOS: axiosConfig.MOBILE_OS,
-          MobileApp: axiosConfig.MOBILE_APP,
-          _type: axiosConfig.TYPE,
-          arrange: axiosConfig.ARRANGE,
-          numOfRows: axiosConfig.NUM_OF_ROWS,
-          pageNo: state.festival.page + 1,
-          eventStartDate: pastDateYMD,
-    },
-  }
-   const response = await axios.get(url, config);
+    // ⬇️ 시/도 & 시군구 필터 전달(있을 때만)
+    if (arg.areaCode) params.areaCode = arg.areaCode;
+    if (arg.sigunguCode) params.sigunguCode = arg.sigunguCode;
 
-   return response.data.response.body;
+    const { data } = await axios.get(url, { params });
+    return data?.response?.body;
   }
 );
 
-export { festivalIndex };
+export const festivalCount = createAsyncThunk(
+  "festivalSlice/festivalCount",
+  async (arg = {}, thunkAPI) => {
+    try {
+      const C = axiosConfig.COMMON;
+      const url = `${C.BASE_URL}/searchFestival2`;
+      const pastDateYMD = dateFormatter.formatDateToYMD(
+        dateCalculater.getPastDate(1000 * 60 * 60 * 24 * 30)
+      );
+
+      const params = {
+        serviceKey: C.SERVICE_KEY,
+        MobileOS: C.MOBILE_OS,
+        MobileApp: C.MOBILE_APP,
+        _type: C.TYPE,
+        arrange: "O",
+        numOfRows: 1,
+        pageNo: 1,
+        eventStartDate: pastDateYMD,
+      };
+
+      // ⬇️ 필터 동일 적용
+      if (arg.areaCode) params.areaCode = arg.areaCode;
+      if (arg.sigunguCode) params.sigunguCode = arg.sigunguCode;
+
+      const { data } = await axios.get(url, { params });
+      return data?.response?.body?.totalCount ?? 0;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(
+        err?.response?.data?.response?.header?.resultMsg ||
+          err?.message ||
+          "searchFestival2(카운트) 요청 실패"
+      );
+    }
+  }
+);

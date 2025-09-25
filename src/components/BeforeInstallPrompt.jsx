@@ -49,8 +49,8 @@ function BeforeInstallPrompt() {
        defferdPrompt && // <button type="button" onClick={handleInstall}>Download</button>
        (
         <div className="prompt-container">
-            <p className="prompt-info">please download!!!</p>
-            <button className="prompt-btn" onClick={handleInstall} type="button"> 설치 </button>
+            <p className="prompt-info">Travel is my life</p>
+            <button className="prompt-btn" onClick={handleInstall} type="button"> Travel now </button>
         </div>
        )
      }

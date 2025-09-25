@@ -3,5 +3,20 @@
   margin: 0 auto;
   width: 100%;
   max-width: 500px;
+  cursor: pointer;
 }
 
+.hero-title {
+   margin:24px 0 12px;
+   text-align:center; 
+   color: #0a6847;  
+}
+   
+
+.hamsterSay {
+  font-size: 20px;
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+}

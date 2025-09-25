@@ -1,35 +1,161 @@
-.show-container {
- padding: 20px;
- display: flex;
- flex-direction: column;
- align-items: center;
- gap: 20px;
- color: #fff;
+:root{
+  --nav-h: 56px;       /* 네비 높이 */
+  --hero-h: 420px;     /* 웹에서 이미지/정보 동일 높이 */
+  --radius: 14px;
+  --shadow: 0 10px 24px rgba(0,0,0,.25);
+  --panel-bg: #fff;    /* 상세는 흰색 카드 스타일 */
+  --text-main: #000;
+  --text-sub: #666;
+  --accent: #337354;
 }
 
-.show-title {
-  font-size: 30px;
+/* 페이지 */
+.festival-page{
+  padding: calc(var(--nav-h) + 16px) 20px 24px;
+  color: var(--text-main);
+  max-width: 1000px;
+  margin: 20px auto;
+}
+
+/* BACK 버튼 (동일) */
+.back-link{
+  top: calc(var(--nav-h) + 6px);
+  left: 20px;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: 700 14px/1.2 "Segoe UI", sans-serif;
+  color: #2b2b2b;
+  cursor: pointer;
+  transition: transform .15s ease, opacity .15s ease, text-decoration-color .15s ease;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+}
+.back-link:hover{
+  transform: translateX(-6px);
+  opacity: .85;
+  color: var(--accent);
+  text-decoration-color: currentColor;
+}
+
+/* 타이틀 (동일 스케일) */
+.festival-title {
+  font-size: 25px;
+  font-weight: 700;
+  margin: 30px 0 12px 10px;
+  padding: 30px 0;
+  text-align: left;
+  color: black;
+}  
+
+/* 날짜 배지 (추가되었지만 톤 동일) */
+.panel__dates {
+  font-size: 15px;
   font-weight: 600;
+  color: #333;  
+  margin-bottom: 12px;
+}
+.panel__dates .dates__range,
+.panel__dates .dates__none {
+  display: inline-block;
+  font: 700 14px/1 "Segoe UI", sans-serif;
+  color: var(--accent);
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 999px;
+  background: #fff; /* stay의 버튼 톤과 일치 */
 }
 
-.show-period {
-  font-size: 30px;
+/* 웹: 이미지 + 정보 가로 배치 */
+.festival-row{
+  display: flex;
+  gap: 18px;
+  align-items: stretch;
 }
 
-.show-img {
+/* 이미지 */
+.media{
+  flex: 1.2;
+  min-width: 0;
+}
+
+.media__img{
   width: 100%;
-  border-radius: 15px;
+  height: var(--hero-h);
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 
-.show-addr {
-  font-size: 15px;
+/* 정보 패널 */
+.panel{
+  flex: 1;
+  min-width: 0;
+  height: var(--hero-h);
+  background: var(--panel-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;   /* 내부 여백 동일 */
 }
 
-.show-btn {
-  padding: 10px;
-  font-size: 15px;
-  border-radius: 15px;
-  background-color: white;
-  border: none;
+.panel__addr,
+.panel__tel{
+  font-size: 18px;
   font-weight: 600;
+  margin: 20px 0px 60px 0px;
+  color: var(--text-sub);
+}
+
+/* 액션 버튼 */
+.panel__actions{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* 버튼 (동일) */
+.btn{
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  font-weight: 700;
+  text-decoration: none;
+  transition: .18s ease;
+}
+.btn.link{
+  border: 1px solid #ccc;
+  color: #000;
+  background: transparent;
+}
+.btn.link:hover {
+  border-color: var(--accent); 
+}
+.btn.primary {
+  background: var(--accent);
+  color: #fff;
+}
+.btn.primary:hover {
+  filter: brightness(1.06); 
+}
+
+/* 빈 상태 (옵션) */
+.festival-page.empty{
+  min-height: 40vh;
+}
+.empty__text{
+  margin: 60px auto 0;
+  text-align: center;
+  font-size: 16px;
+  color: var(--text-sub);
+}
+
+/* 모바일: 세로 배치 */
+@media (max-width: 1000px){
+  .festival-row{ flex-direction: column; }
+  .media__img,
+  .panel{ height: auto; } /* 같은 크기: 모바일은 auto */
 }

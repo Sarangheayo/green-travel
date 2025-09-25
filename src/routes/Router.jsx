@@ -3,15 +3,23 @@ import App from "../App.jsx";
 import Main from "../components/Main.jsx";
 import FestivalList from "../components/festivals/FestivalList.jsx";
 import FestivalShow from "../components/festivals/FestivalShow.jsx";
+import Explore from "../components/Explore.jsx";
+import StayList from "../components/stays/StayList.jsx";
+import StayShow from "../components/stays/StayShow.jsx";
+import FoodList from "../components/foods/FoodList.jsx";
 
 const router = createBrowserRouter([
   {
     element: <App />,
     children: [
       {
-        path: '/',
+        index: true,
         element: <Main />
       },
+      { 
+        path: '/explore', 
+        element: <Explore />
+      }, 
       {
         path: '/festivals',
         element: <FestivalList />
@@ -20,6 +28,18 @@ const router = createBrowserRouter([
         path: '/festivals/:id',
         element: <FestivalShow/>
       },
+      {
+        path: "/stays",
+        element: <StayList />
+      },
+      {
+        path: "/stays/:id",
+        element: <StayShow />
+      },
+      {
+        path: "/foods",
+        element: <FoodList />  //맛집 추가는 추후에 작업
+      }
     ]
   }
 ]);

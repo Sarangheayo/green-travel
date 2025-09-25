@@ -1,84 +1,82 @@
-import { KEY_LOCALSTORAGE_CLEAR_DATE, KEY_LOCALSTORAGE_FESTIVAL_FLG, KEY_LOCALSTORAGE_FESTIVAL_LIST, KEY_LOCALSTORAGE_FESTIVAL_PAGE } from "../configs/keys.js";
 
+import {
+  KEY_LOCALSTORAGE_CLEAR_DATE,
+  KEY_LOCALSTORAGE_FESTIVAL_FLG,
+  KEY_LOCALSTORAGE_FESTIVAL_LIST,
+  KEY_LOCALSTORAGE_FESTIVAL_PAGE,
+  LS_KEYS,
+} from "../configs/keys.js";
+
+/** ---------- 기존 Festival 전용 유틸 (원본 유지) ---------- */
 export const localStorageUtil = {
-  // 책임 중심적 설계시 코드 작성 방법
   clearLocalstorage: () => {
-     localStorage.clear();
+    localStorage.clear();
   },
-  /**
-   * 로컬 스토리지의 페스티벌 리스트 저장
-   * @param {[]} festivalList
-   */
+
+  // FESTIVAL 리스트
   setFestivalList: (data) => {
     localStorage.setItem(KEY_LOCALSTORAGE_FESTIVAL_LIST, JSON.stringify(data));
   },
-
-  /**
-   *  로컬 스토리지의 페스티벌 리스트 반환
-   * @returns {[]} festivalList
-   */
   getFestivalList: () => {
-    return JSON.parse(localStorage.getItem(KEY_LOCALSTORAGE_FESTIVAL_LIST));
+    try {
+      const raw = localStorage.getItem(KEY_LOCALSTORAGE_FESTIVAL_LIST);
+      return raw ? JSON.parse(raw) : [];
+    } catch {
+      return [];
+    }
   },
 
-  /**
-   * 로컬 스토리지의 페스티벌 페이지 번호 저장
-   * @param {number} pageNo 
-   */
+  // FESTIVAL 페이지
   setFestivalPage: (pageNo) => {
-    localStorage.setItem(KEY_LOCALSTORAGE_FESTIVAL_PAGE, pageNo.toString());
+    localStorage.setItem(KEY_LOCALSTORAGE_FESTIVAL_PAGE, String(pageNo));
   },
- 
-  /**
-   * 로컬 스토리지의 페스티벌 페이지 번호 반환
-   * @returns {number} 페이지 번호
-   */
-    getFestivalPage: () => {
-    return parseInt(localStorage.getItem(KEY_LOCALSTORAGE_FESTIVAL_PAGE));
+  getFestivalPage: () => {
+    const n = Number(localStorage.getItem(KEY_LOCALSTORAGE_FESTIVAL_PAGE));
+    return Number.isFinite(n) && n > 0 ? n : 1;
   },
 
-  /**
-   * 로컬 스토리지의 페스티벌 스크롤 플래그 저장
-   * @param {boolean} flg 
-   */
+  // FESTIVAL 스크롤 플래그
   setFestivalScrollFlg: (flg) => {
-    localStorage.setItem(KEY_LOCALSTORAGE_FESTIVAL_FLG, flg.toString());
+    localStorage.setItem(KEY_LOCALSTORAGE_FESTIVAL_FLG, String(!!flg));
+  },
+  getFestivalScrollFlg: () => {
+    const raw = localStorage.getItem(KEY_LOCALSTORAGE_FESTIVAL_FLG);
+    return raw == null ? true : String(raw).toLowerCase() === "true";
   },
 
-  /**
-   *  로컬 스토리지의 페스티벌 스크롤 플래그 반환
-   * @returns {boolean} flg
-   */
-     getFestivalScrollFlg: () => {
-    return JSON.parse(localStorage.getItem(KEY_LOCALSTORAGE_FESTIVAL_FLG));
-  },
-
-
-     /**
-   * 로컬 스토리지에 로컬 스토리지 클리어 날짜 저장
-   * @param {String} dateYMD 
-   */
+  // CLEAR_DATE
   setClearDate: (dateYMD) => {
     localStorage.setItem(KEY_LOCALSTORAGE_CLEAR_DATE, dateYMD);
   },
-
-  /**
-   * 로컬 스토리지에 로컬 스토리지 클리어 날짜 변환
-   * @returns {string | null}  
-   */
   getClearDate: () => {
-      return localStorage.getItem(KEY_LOCALSTORAGE_CLEAR_DATE);
+    return localStorage.getItem(KEY_LOCALSTORAGE_CLEAR_DATE);
+  },
+};
+
+/** ---------- 공용 세이프 헬퍼 + STAY 전용 ---------- */
+const safeParse = (raw, fallback) => {
+  try {
+    if (raw == null) return fallback;
+    return JSON.parse(raw);
+  } catch {
+    return fallback;
   }
-}
+};
+const safeGet = (key, fallback) => safeParse(localStorage.getItem(key), fallback);
+const safeSet = (key, value) => localStorage.setItem(key, JSON.stringify(value));
 
-  // 역할 중심적 설계 시 코드 작성 방법
-  // setLocalStorage: (key, data) => {
-  //   localStorage.setItem(key, JSON.stringify(data));
-  // },
-  // getLocalStorage: (key) => {
-  //   return localStorage.getItem(key);
-  // },
+// STAY
+export const getStayList = () => safeGet(LS_KEYS.STAY.LIST, []);
+export const setStayList = (v) => safeSet(LS_KEYS.STAY.LIST, v);
 
+export const getStayPage = () => {
+ const n = Number(safeGet(LS_KEYS.STAY.PAGE, 0));
+ return Number.isFinite(n) && n >= 0 ? n : 0; 
+};
+export const setStayPage = (v) => safeSet(LS_KEYS.STAY.PAGE, v);
 
-
-
+export const getStayScrollFlg = () => {
+  const b = safeGet(LS_KEYS.STAY.FLG, true);
+  return typeof b === "boolean" ? b : String(b).toLowerCase() === "true";
+};
+export const setStayScrollFlg = (v) => safeSet(LS_KEYS.STAY.FLG, !!v);

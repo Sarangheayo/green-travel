@@ -15,7 +15,7 @@ export default defineConfig({
           '/icons/icon-180.png',
           '/icons/icon-192.png',
           '/icons/icon-512.png',
-          '/base/titleImg.png',
+          '/base/titleImg.jpg',
        ],   
        manifest: {
          name: 'Green Travel', // PWA 앱 이름 (설치 배너에 표시)
