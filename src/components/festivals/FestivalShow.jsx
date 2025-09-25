@@ -1,4 +1,3 @@
-// src/components/festivals/FestivalShow.jsx
 import { useNavigate, useParams } from "react-router-dom";
 import "./FestivalShow.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -112,8 +111,6 @@ function FestivalShow() {
           >
             웹사이트 방문
           </a>
-          {/* 예약 URL은 축제엔 보통 없으니 비활성/숨김 처리 */}
-          {/* <a className="btn primary" href={reservationUrl ?? "#"} target="_blank" rel="noreferrer">예약 바로가기</a> */}
         </div>
       </aside>
     </section>

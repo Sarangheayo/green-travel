@@ -12,7 +12,7 @@ export const selectFestivalListVM = createSelector(
     return list.map((item) => {
       const title = item?.title ?? '';
       const short = ListTitleLimit(title, limit);
-      return { ...item, shortTitle: short }; // ✅ shortTitle로 통일
+      return { ...item, shortTitle: short }; // shortTitle로 통일
     });
   }
 );

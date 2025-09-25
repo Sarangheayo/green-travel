@@ -1,4 +1,5 @@
 const swRegister = () => {
+  // 서비스 워커 지원 여부 확인 
  if('serviceWorker' in navigator) {
    navigator.serviceWorker
     .register(

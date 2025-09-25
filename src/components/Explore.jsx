@@ -10,11 +10,11 @@ const cards = [
     img: "/base/festivalsFirstImg.jpg",
   },
   {
-    key: "stays",                       // ← 변경
+    key: "stays",                     
     title: "숙박 정보",
     desc: "주변 호텔·게스트하우스",
-    to: "/stays",                       // ← 변경
-    img: "/base/staysFirstImg.jpg",       // ← 변경(이미지 파일명도 맞춰 준비)
+    to: "/stays",                       
+    img: "/base/staysFirstImg.jpg",     
   },
   {
     key: "foods",

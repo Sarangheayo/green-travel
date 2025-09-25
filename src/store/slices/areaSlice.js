@@ -10,16 +10,21 @@ const areaSlice = createSlice({
     error: null,
     selected: { areaCode: "", sigunguCode: "" }, // 현재 선택
   },
+  /* --- EDIT --- */
   reducers: {
+    /* 선택한 시도/시군구 코드 저장 */
     setAreaSelection(state, action) {
       const { areaCode = "", sigunguCode = "" } = action.payload || {};
       state.selected.areaCode = areaCode;
       state.selected.sigunguCode = sigunguCode;
     },
+    /* 선택 초기화 */
     resetAreaSelection(state) {
       state.selected = { areaCode: "", sigunguCode: "" };
     },
   },
+
+  /* --- IGNORE --- */
   extraReducers: (b) => {
     b.addCase(fetchSidos.pending, (s) => { s.loading = true; s.error = null; })
      .addCase(fetchSidos.fulfilled, (s, a) => {

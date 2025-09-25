@@ -1,6 +1,5 @@
-// src/store/selectors/staySelectors.js
 import { createSelector } from "reselect";
-import { ListTitleLimit } from "../../utils/ListTitleLimit"; // 제목 제한 유틸 재사용
+import { ListTitleLimit } from "../../utils/ListTitleLimit"; 
 
 const selectStayList = (state) => state?.stay?.list ?? [];
 const selectTitleLimit = () => 9;

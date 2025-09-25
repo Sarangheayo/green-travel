@@ -15,12 +15,12 @@ const staySlice = createSlice({
   name: "staySlice",
   initialState: {
     list: getStayList?.() ?? [],
-    page: getStayPage?.() ?? 0,
-    totalCount: 0,          // ✅ 추가
-    loading: false,         // ✅ 리스트 로딩
-    countLoading: false,    // ✅ totalCount 로딩
+    page: getStayPage?.() ?? 0, 
+    totalCount: 0,         
+    loading: false,         
+    countLoading: false,    
     error: null,
-    // ✅ 함수 호출로 값을 읽어야 함
+    // 스크롤 가드 플래그 (중복 호출 방지)
     scrollEventFlg: (() => {
       const v = getStayScrollFlg?.();
       return typeof v === "boolean" ? v : true;
@@ -70,6 +70,7 @@ const staySlice = createSlice({
         state.error = null;
         state.scrollEventFlg = false; // 중복 호출 방지
       })
+       // fulfilled: 데이터 처리
       .addCase(stayIndex.fulfilled, (state, action) => {
         const body = action.payload ?? {};
         const raw = body?.items?.item;

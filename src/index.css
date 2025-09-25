@@ -8,6 +8,7 @@ body {
   background-color: rgb(219, 219, 219);
 }
 
+/* root 요소 스타일 */
 #root {
   max-width: 1000px;
   margin: 0 auto;

@@ -38,7 +38,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/foods",
-        element: <FoodList />  //맛집 추가는 추후에 작업
+        element: <FoodList />  //맛집 추가는 추후에 작업  
       }
     ]
   }

@@ -9,10 +9,10 @@ export const festivalIndex = createAsyncThunk(
   "festivalSlice/festivalIndex",
   async (arg = {}, thunkAPI) => {
     const state = thunkAPI.getState();
+    // 최근 30일 이내 시작하는 축제
     const pastDateYMD = dateFormatter.formatDateToYMD(
       dateCalculater.getPastDate(1000 * 60 * 60 * 24 * 30)
     );
-
     const C = axiosConfig.COMMON;
     const url = `${C.BASE_URL}/searchFestival2`;
     const arrange = C.ARRANGE ?? "O";
@@ -29,10 +29,9 @@ export const festivalIndex = createAsyncThunk(
       eventStartDate: pastDateYMD,
     };
 
-    // ⬇️ 시/도 & 시군구 필터 전달(있을 때만)
+    // ⬇️ 필터 동일 적용
     if (arg.areaCode) params.areaCode = arg.areaCode;
     if (arg.sigunguCode) params.sigunguCode = arg.sigunguCode;
-
     const { data } = await axios.get(url, { params });
     return data?.response?.body;
   }

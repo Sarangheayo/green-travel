@@ -6,9 +6,9 @@ import stayShowReducer from "./slices/stayShowSlice.js";
 import areaReducer from "./slices/areaSlice.js";
 
 
-
-
+// 루트 리듀서 설정
 export default configureStore({
+   // 각 슬라이스 리듀서 등록
     reducer: {
       festival: festivalReducer,
       festivalShow: festivalShowReducer,

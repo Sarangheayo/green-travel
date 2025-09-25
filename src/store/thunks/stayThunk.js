@@ -2,9 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import axiosConfig from '../../configs/axiosConfig.js';
 
-// ✅ 공통: searchStay2 (주의: contentTypeId / mapinfoYN / listYN 넣지 말 것)
-
-// 리스트 로드(무한스크롤)
+// 숙박 목록 가져오기
 export const stayIndex = createAsyncThunk(
   'staySlice/stayIndex',
   async (arg = {}, thunkAPI) => {
@@ -50,7 +48,7 @@ export const stayIndex = createAsyncThunk(
   }
 );
 
-// ✅ 총 개수만 빠르게 가져오기(슬라이스에서 toNum(payload)로 받음)
+// 총 개수만 빠르게 가져오기(슬라이스에서 toNum(payload)로 받음)
 export const stayCount = createAsyncThunk(
   'staySlice/stayCount',
   async (arg = {}, thunkAPI) => {

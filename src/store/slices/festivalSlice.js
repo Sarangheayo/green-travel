@@ -89,3 +89,4 @@ const festivalSlice = createSlice({
 
 export const { setScrollEventFlg, resetFestival } = festivalSlice.actions;
 export default festivalSlice.reducer;
+ 

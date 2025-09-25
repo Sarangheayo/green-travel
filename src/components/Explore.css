@@ -1,5 +1,8 @@
-/* src/components/Explore.css */
-.explore { max-width: 1200px; margin: 0 auto; padding: 24px 16px; }
+.explore {
+  max-width: 1200px; 
+  margin: 0 auto; 
+  padding: 24px 16px; 
+}
 
 .hero {
   background: linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,0)),
@@ -86,6 +89,7 @@
  margin-bottom: 8px;   /* 제목과 본문 간격 */
 }
 
+/* 제목 */
 .card__overlay h2 {
   font-size: 1.3rem;
   font-weight: 900;

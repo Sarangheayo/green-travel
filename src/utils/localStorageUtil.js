@@ -1,4 +1,3 @@
-
 import {
   KEY_LOCALSTORAGE_CLEAR_DATE,
   KEY_LOCALSTORAGE_FESTIVAL_FLG,
@@ -69,12 +68,14 @@ const safeSet = (key, value) => localStorage.setItem(key, JSON.stringify(value))
 export const getStayList = () => safeGet(LS_KEYS.STAY.LIST, []);
 export const setStayList = (v) => safeSet(LS_KEYS.STAY.LIST, v);
 
+// page 0부터 시작
 export const getStayPage = () => {
  const n = Number(safeGet(LS_KEYS.STAY.PAGE, 0));
  return Number.isFinite(n) && n >= 0 ? n : 0; 
 };
 export const setStayPage = (v) => safeSet(LS_KEYS.STAY.PAGE, v);
 
+// 스크롤 플래그
 export const getStayScrollFlg = () => {
   const b = safeGet(LS_KEYS.STAY.FLG, true);
   return typeof b === "boolean" ? b : String(b).toLowerCase() === "true";

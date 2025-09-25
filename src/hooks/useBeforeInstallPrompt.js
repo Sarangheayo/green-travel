@@ -23,3 +23,4 @@ export default function useBeforeInstallPrompt() {
 
   return { canInstall: !!deferred, promptInstall, reset: () => setDeferred(null) };
 }
+

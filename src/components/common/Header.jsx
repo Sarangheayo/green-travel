@@ -14,7 +14,7 @@ export default function Header() {
     if (!active) return;
 
     // 활성 탭이 항상 왼쪽 패딩 안쪽에 보이도록
-    const leftPadding = 16; // CSS padding-left 값과 맞춰야 함
+    const leftPadding = 16; 
     const target = active.offsetLeft - leftPadding;
     wrap.scrollTo({ left: target, behavior: "smooth" });
   }, [pathname]);

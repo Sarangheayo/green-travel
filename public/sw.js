@@ -1,4 +1,3 @@
-// public/sw.js
 const SW_VERSION = 'v3';
 const PRECACHE_NAME = `precache-${SW_VERSION}`;
 const RUNTIME_NAME  = `runtime-${SW_VERSION}`;

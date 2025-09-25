@@ -4,7 +4,6 @@ import Header from './components/common/Header.jsx';
 import { Outlet, ScrollRestoration } from 'react-router-dom';
 import { localStorageUtil } from './utils/localStorageUtil.js';
 import { dateFormatter } from './utils/dateFormatter.js';
-import BeforeInstallPrompt from './components/BeforeInstallPrompt.jsx';
 import InstallPrompt from "./components/common/InstallPrompt";
 
 function App() {

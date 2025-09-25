@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import axiosConfig from "../../configs/axiosConfig.js";
 
-// 시/도 목록 (KTO KorService2: areaCode2)
+// 시/도 목록 (최초 1회)
 export const fetchSidos = createAsyncThunk(
   "area/fetchSidos",
   async (_, { rejectWithValue }) => {
@@ -12,9 +12,9 @@ export const fetchSidos = createAsyncThunk(
       const params = {
         serviceKey: C.SERVICE_KEY,
         MobileOS: C.MOBILE_OS,
-        MobileApp: C.MOBILE_APP,
+        MobileApp: C.MOBILE_APP, 
         _type: C.TYPE, // 'json'
-        numOfRows: 100, // 충분히 크게
+        numOfRows: 100, // 여유
       };
       const { data } = await axios.get(url, { params });
       const items = data?.response?.body?.items?.item ?? [];
@@ -38,7 +38,7 @@ export const fetchSigungu = createAsyncThunk(
         MobileOS: C.MOBILE_OS,
         MobileApp: C.MOBILE_APP,
         _type: C.TYPE,
-        areaCode,         // ★ 시/도 코드 전달
+        areaCode,        
         numOfRows: 500,   // 여유
       };
       const { data } = await axios.get(url, { params });
