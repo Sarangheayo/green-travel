@@ -1,0 +1,93 @@
+:root{
+  --ip-bottom: max(16px, env(safe-area-inset-bottom));
+  --ip-radius: 16px;
+  --ip-offset: 110px;
+}
+
+/* 가로폭만 살짝 축소: 최대 560px */
+.install-prompt{
+  position: fixed;
+  left: 50%;
+  bottom: var(--ip-bottom);
+  transform: translateX(-50%);
+  z-index: 2200;
+
+  width: clamp(280px, 86vw, 560px); /* ← 여기만 줄였어요 */
+
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: var(--ip-radius);
+  box-shadow: 0 14px 36px rgba(0,0,0,.25);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 22px 22px;
+
+  animation: ip-slide-up .22s ease-out;
+}
+
+.install-prompt::before{
+  content:"";
+  position:absolute; left:0; right:0; top:0; height:12px;
+  border-top-left-radius: var(--ip-radius);
+  border-top-right-radius: var(--ip-radius);
+  background: linear-gradient(#e9e9e9, rgba(255,255,255,0));
+  pointer-events:none;
+}
+
+@keyframes ip-slide-up{
+  from { transform: translate(-50%, 8px); opacity: 0; }
+  to   { transform: translate(-50%, 0);  opacity: 1; }
+}
+
+.ip-title{
+  font-size: 18px;
+  font-weight: 800;
+  color: #2b2b2b;
+  text-align: center;
+}
+
+.ip-cta{
+  border: 0;
+  border-radius: 9999px;
+  background: #337354;
+  color: #fff;
+  font-weight: 800;
+  padding: 10px 22px;
+  box-shadow: 0 6px 14px rgba(0,0,0,.18);
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+}
+.ip-cta:hover{ transform: translateY(-1px); box-shadow: 0 10px 20px rgba(0,0,0,.24); filter: brightness(1.05); }
+.ip-cta:active{ transform: translateY(0) scale(.98); }
+
+/* 작고 심플한 닫기(X) 버튼 */
+.ip-close{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 22px;
+  height: 22px;
+  line-height: 20px;
+  text-align: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #666;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background .15s ease, transform .15s ease, color .15s ease;
+}
+.ip-close:hover{
+  background: rgba(0,0,0,.06);
+  color: #333;
+  transform: scale(1.05);
+}
+
+/* 배너가 떠 있을 때 TOP 버튼 오프셋 유지 */
+.has-install .btn-top{
+  bottom: calc(var(--ip-bottom) + var(--ip-offset) + 12px);
+}
